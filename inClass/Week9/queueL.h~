@@ -1,0 +1,63 @@
+typedef int elmtypeL;
+typedef struct node node;
+typedef struct node
+{
+  elmtypeL data;
+  node* toFront;
+  node* toRear;
+}node;
+
+node* Front, Rear;
+
+void initializeL(node* p)
+{
+  p = NULL;
+  Front = p;
+  Rear = p;
+}
+
+node* makeNewNode(elmtypeL value)
+{
+  node* new;
+  new = (node* )malloc(sizeof(node));
+  new->data = value;
+  new->toFront = NULL;
+  new->toRear = NULL;
+  return new;
+}
+
+int isEmpty(node* p)
+{
+  return (p == NULL);
+}
+
+void enQueue(node* p, elmTypeL* value)
+{
+  if (isEmpty(p))
+    {
+      node* tmp = makeNewNode(value);
+      p = tmp;
+    }
+  else
+    {
+      node* append = makeNewNode(value);
+      Rear->toRear = append;
+      append->toFront = Rear;
+      Rear = Rear->toRear;
+    }
+}
+
+elmtypeL deQueue(node* p)
+{
+  if (isEmpty(p))
+    {
+      printf("Queue is empty.\n");
+    }
+  else
+    {
+      node* takeout = Front;
+      Front = Front->toRear;
+      Front->toFront = NULL;
+      return takeout->data;
+    }
+}

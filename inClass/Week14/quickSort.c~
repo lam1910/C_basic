@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define LEN 200000
+
+typedef struct elm
+{
+  int key;
+}element;
+
+void swap(element* a, element* b)
+{
+  element tmp = *a;
+  *a = *b;
+  *b = tmp;
+}
+
+void quickSort(element list[], int left, int right)
+{
+  clock_t begin = clock();
+  int pivot, i, j;
+  element tmp;
+  if (left < right)
+    {
+      i = left;
+      j = right + 1;
+      pivot = list[left].key;
+      do
+	{
+	  do i ++; while (list[i].key < pivot);
+	  do j --; while (list[j].key > pivot);
+	  if (i < j)
+	    swap(&list[i], &list[j]);
+	}while (i < j);
+      swap(&list[left], &list[j]);
+      quickSort(list, left, j - 1);
+      quickSort(list, j + 1, right);
+    }
+  clock_t end = clock();
+  printArray(list, right - left + 1);
+  printf("Execution time: %lf.\n", (double)(end - begin) / CLOCKS_PER_SEC);
+}
+
+//print n elements
+void printArray(element a[], int n)
+{
+  int i;
+  if (n > LEN)
+    {
+      printf("Out of Range!\n");
+    }
+  else
+    {
+      for (i = 0; i < n; ++i)
+	printf("%d\t", a[i].key);
+      printf("\n");
+    }
+}
+
+//support function for heapSort
+void Heapify(element A[], int k)
+{
+  int heapSize = LEN - 1;
+  int l = 2 * k + 1;
+  int r = 2 * k + 2;
+  int largest;
+
+  if(l <= heapSize && A[l].key > A[k].key)
+    largest = l;
+  else
+    largest = k;
+  if(r <= heapSize && A[r].key > A[largest].key)
+    largest = r;
+  if(largest != k)
+    {
+      int tmp = A[k].key;
+      A[k].key = A[largest].key;
+      A[largest].key = tmp;
+      Heapify(A, largest);
+    }
+}
+
+//build a heap for heapSort
+void BuildHeap(element* A)
+{
+  int heapSize = LEN - 1;
+  int i;
+  for(i = heapSize / 2; i >= 0; i--)
+    Heapify(A, i);
+}
+
+//heap sort of array a of n elements element
+void heapSort(element* a, int n)
+{
+  clock_t begin = clock();
+  int heapSize = n - 1;
+  BuildHeap(a);
+  int i;
+  for (i = heapSize; i >= 0; i --)
+    {
+      element tmp = a[heapSize];
+      a[heapSize] = a[0];
+      a[0] = tmp;
+      heapSize --;
+      Heapify(a, 0);
+    }
+  clock_t end = clock();
+  printf("Array after sorted:\n");
+  printArray(a, n);
+  printf("Time Execution: %lf second(s)\n", (double)(end - begin) / CLOCKS_PER_SEC);
+}
+
+
+//reset the elements of an array
+void reset(element a[])
+{
+  int i;
+  int r;
+  for (i = 0; i < LEN; ++i)
+    {
+      r = rand() % 5000000;
+      a[i].key = r;
+    }
+}
+
+int main()
+{
+  element arr[LEN];
+  reset(arr);
+  printArray(arr, LEN);
+  quickSort(arr, LEN);
+  return 0;
+}

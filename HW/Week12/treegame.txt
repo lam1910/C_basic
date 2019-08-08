@@ -1,0 +1,22 @@
+VONG LOAI:
+	HUST - NUCE ---> HUST
+	 NEU - HNUE ---> HNUE
+	 HMU - HANU ---> HMU
+	  BA - FTU  ---> BA
+	ULIS - VCU  ---> VCU
+	 AOF - WRU  ---> AOF
+	 UCT - PTIT ---> UCT
+	 HAU - HOU  ---> HOU
+
+TU KET:
+	HUST - HNUE ---> HUST
+	 HMU - BA   ---> HMU
+	 VCU - AOF  ---> VCU
+	 UCT - HOU  ---> UCT
+
+BAN KET:
+	HUST - HMU  ---> HUST
+	 VCU - UCT  ---> VCU
+
+CHUNG KET:
+	HUST - VCU  ---> HUST

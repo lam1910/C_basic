@@ -1,0 +1,21 @@
+/*Project from book: Problem Solving and Program Design in C
+  Author(s): Jeri R.Hanly & Elliot B.Koffman
+  Program by: Lam
+  Date: 30/3/2018 16:35*/
+  
+#include <stdio.h>
+
+#define waterMass 1000
+#define g 9.80
+#define H 0.90
+
+//This prgram calculate how much energy will be generated from a dam with the height h (m) and flow of v (m^3/s)
+
+int main(int argc, char* argv[])
+{
+  //argc = 3, dam height flow
+  if (argc < 3)
+    {
+      printf("Not enough arguments were given 
+    }
+}

@@ -1,0 +1,4 @@
+show tree preoder, inoder, postoder for both normal tree and BST. (done)
+cannot use postfixTOinfix.c from inClass/Week9
+finish postfixEval_tree.c
+

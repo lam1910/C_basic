@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define LEN 2000000
+//create a structure to work
+typedef struct elm
+{
+  int key;
+}element;
+
+//reset the array
+element* reset(element* a)
+{
+  a = (element* )realloc(a, LEN * sizeof(element));
+  int i;
+  int r;
+  for (i = 0; i < LEN; ++i)
+    {
+      r = rand() % 5000000;
+      (*(a + i)).key = r;
+    }
+  return a;
+}
+
+void printArray(element* a)
+{
+  int i;
+  for (i = 0; i < LEN; ++i)
+    printf("%d\t", (*(a + i)).key);
+  printf("\n");
+}
+
+//selection sort of array a of n elements element
+void selectSort(element* a, int n)
+{
+}
+
+//insertion sort of array a of n elements element
+void insertSort(element* a, int n)
+{
+  int i = 1;
+  int j = 0;
+  element next;
+  for (i = 1; i < n; i ++)
+    {
+      next = *(a + i);
+      for (j = i - 1; (j >= 0) && (next.key < (*(a + j)).key); j --)
+	*(a + j + 1) = *(a + j);
+      *(a + j + 1) = next;
+    }
+}
+
+//bubble sort of array a of n elements element
+void bubbleSort(element* a, int n)
+{
+}
+
+//heap sort of array a of n elements element
+void heapSort(element* a, int n)
+{
+}
+
+int main()
+{
+  element* arr;
+  arr = malloc(5 * sizeof(element));
+  srand(time(NULL));
+  printf("\n____________________\n\n");
+  printf("Starting........Taking initial array of number........Done!\n");
+  arr = reset(arr);
+  printArray(arr);
+  int choice;
+  do
+    {
+      printf("____________________\n\n");
+      printf("Menu:\n");
+      printf("\t1: Reset data.\n");
+      printf("\t2: Insertion sort.\n");
+      printf("\t3: Selection sort.\n");
+      printf("\t4: Bubble sort.\n");
+      printf("\t5: Heap sort.\n");
+      printf("\t6: Exit.\n");
+      printf("Your choice: ");
+      scanf("%d", &choice);
+      getchar();
+      switch (choice)
+	{
+	case 1:
+	  arr = reset(arr);
+	  printArray(arr);
+	  break;
+	case 2:
+	  insertSort(arr, LEN);
+	  printArray(arr);
+	  break;
+	case 3:
+	  break;
+	case 4:
+	  break;
+	case 5:
+	  break;
+	case 6:
+	  printf("Goodbye. See you again!\n");
+	  break;
+	default:
+	  printf("Wrong command. Please choose the number between 1 and 6.\nThe menu will be shown again.");
+	  break;
+	}
+      printf("\n\n");
+    }while (choice != 6);
+  return 0;
+}

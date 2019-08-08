@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+//for int stack
+#include "stackA.h"
+//for monory stack
+#include "stackL.h"
+
+//convert from int to string
+char* convertToStr(int num)
+{
+  char result[7];
+  sprintf(result, "%d", num);
+  printf("\n The string for the num is %s", result);
+  getchar();
+  return result;
+}
+
+int main()
+{
+  int choide;
+
+  //declare the int stack
+  stackType numList;
+  initialize(numList);
+
+  //declare the memory stack
+  node* undoList;
+  initializeL(undoList);
+  
+  do
+    {
+      printf("Remember: While the number stack can only hold at most 50 numbers, the undo operation can take you to wherever you want, but it is not advised to do more than 49 undoes in the row.\n");
+      printf("****************\nMenu:\n");
+      printf("\t1: Adding new integer.\n");
+      printf("\t2: Peaking at the top element.\n");
+      printf("\t3: Taking the top element.\n");
+      printf("\t4: Undo.");
+      printf("\t5: Quit.\n");
+      printf("\t\tYour choice: ");
+      scanf("%d", &choice);
+      getchar();
+      switch(choice)
+	{
+	case 1:
+	  int val;
+	  if (!isFull(numList))
+	    {
+	      printf("What number would you like to be added to the list: ");
+	      scanf("%d", &val);
+	      push(numList, val);
+	      //'P' for push
+	      pushHead(undoList, "P");
+	    }
+	  else
+	    {
+	      printf("Stack is full. Suggest to take a litle numbers of integer out or undo.\n");
+	    }
+	  break;
+	case 2:
+	  printf("This option does not affect the content of the stack.\n");
+	  showTop(numList);
+	  break;
+	case 3:
+	  int reVal;
+	  if (!isEmpty(numList))
+	    {
+	      reVal = pop(numList);
+	      //'p' for pop
+	      char p;
+	      strcat(p, "p");
+	      strcat(p, convertToStr(reVal));
+	      pushHead(undoList, p);
+	    }
+	  else
+	    {
+	      printf("Stack is empty. Suggest to add some numbers of integer in or undo.\n");
+	    }
+	  break;
+	case 4:
+	  char reM;
+	  reM = popHead(undoList);
+	  if (strcmp(reM,"P") == 0)
+	    {
+	      int i = pop(numList);
+	      printf("Undo completed. New top:\n");
+	      showTop(numList);
+	    }
+	  else
+	    {
+	      char c;
+	      char num;
+	      int append;
+	      while (c = *(++reM))
+		{
+		  strcat(num, &c);
+		}
+	      append = atoi(num);
+	      push(numList, append);
+	      printf("Undo completed. New top:\n");
+	      showTop(numList);
+	    }
+	  break;
+	case 5:
+	  printf("Thank you for chossing us. Good bye!\n");
+	  break;
+	default:
+	  printf("Do not have that operation. It is advised that you follow the instructions. The menu will show again.\n");
+	  break;
+	}
+    }while (choice != 5);
+  return 0;
+}

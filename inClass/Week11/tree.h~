@@ -1,0 +1,30 @@
+typedef char elmtypeT;
+typedef struct node
+{
+  elmtypeT data;
+  struct node* left;
+  struct node* right;
+}node;
+
+typedef struct node* treeType;
+
+void makeNewTree(treeType* t)
+{
+  t = NULL;
+}
+
+int isEmptyT(treeType* t)
+{
+  return (t == NULL);
+}
+
+node* makeNewNode(elmtypeT value)
+{
+  node* new;
+  new = (node* )malloc(sizeof(node));
+  new->data = value;
+  new->left = NULL;
+  new->right = NULL;
+  return new;
+}
+

@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+enum {SUCCESS, FAIL, MAX_LEN = 80};
+
+typedef struct record
+{
+  char brand[MAX_LEN + 1];
+  char model[MAX_LEN + 1];
+  unsigned int memory;
+  float screen;
+  unsigned long price;
+}phone;
+
+void toStruct(FILE* fptr)
+{
+  //write data to struct phone
+  phone* rec;
+  fscanf(fptr, "%s %s %u %f %lu\n", &(rec->brand),&(rec->model), &(rec->memory), &(rec->screen), &(rec->price));
+}
+
+void toBin(
+int main()
+{
+  char fin[] = "PhoneDB.txt";
+  char fout[] = "PhoneDB.dat";
+
+  
+ 
+  int choice;
+  do
+    {
+      printf("Remember to create a .dat file using function 1 before using others functions.\n");
+
+      printf("Welcome to phoneFinder. How can I help you?\n");       // Application menu
+      printf("\t1: Import DB From Text.\n\t2: Import From DB.\n\t3: Print All Your Favourite Manufacturer Model In DB.\n\t4: Find Your Dream Phone.\n\t5: Exit.\n");
+      printf("Your choice: ");
+      scanf("%d", &choice);
+
+      switch(choice)                           // choice handler
+	{
+	case 1:
+	  break;
+	case 2:
+	  break;
+	case 3:
+	  break;
+	case 4:
+	  break;
+	case 5:
+	  printf("Bye Bye! Thank you for choosing our service.\n");
+	  break;
+	default:
+	  printf("Wrong input! Please enter a positive and less than 6 integer number. The menu will be shown again.\n");
+	  break;
+	}
+     }while (choice != 5);
+  return 0;
+}

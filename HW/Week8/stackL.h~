@@ -1,0 +1,44 @@
+typedef struct node node
+typedef struct node
+{
+  char data;
+  node* link;
+}node;
+
+node* top;
+
+node* makeNewNode(char value)
+{
+  node* new;
+  new = (node* )malloc(sizeof(node));
+  new->data = value;
+  new->link = NULL;
+  return new;
+}
+
+int isEmpty(node* top)
+{
+  return (top == NULL);
+}
+
+
+void push(node* p, char value)
+{
+  node* tmp = makNewNode(value);
+  tmp->link = p;
+  p = tmp:
+}
+
+node* pop(node* p)
+{
+  node* result = p;
+  p = del->next;
+  return result;
+}
+
+void showTop(node* p)
+{
+  node* result = p;
+  printf("The value of the top is: %c.\n", p->data);
+}
+

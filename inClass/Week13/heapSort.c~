@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+typedef struct elm
+{
+  int key;
+}element;
+
+//swap two element
+void swap(element a, element b)
+{
+  element tmp;
+  tmp = a;
+  a = b;
+  b = tmp;
+}
+
+//adjust from bottom
+void adjust(element list[], int root, int n)
+{
+  int child, rootkey;
+  element tmp;
+  tmp = list[root];
+  rootkey = list[root].key;
+  child = 2 * root;
+  while (child <= n)
+    {
+      if ((child < n) && (list[child].key < list[child + 1].key))
+	child ++;
+      if (rootkey > list[child].key)
+	break;
+      else
+	{
+	  list[child / 2] = list[child];
+	  child *= 2;
+	}
+    }
+  list[child / 2] = tmp;
+}
+
+void heapSort(element list[], int n)
+{
+  int i;
+  //build from bottom
+  for (i = n / 2; i > 0; i --)
+    adjust(list, i, n);
+  for (i = n - 1; i > 0; i --)
+    {
+      swap(list[1], list[i + 1]);
+      adjust(list, 1, i);
+    }
+}
+
+int main()
+{
+  element arr[200000];
+  int len = 200000;
+  int i;
+  srand(time(NULL));
+  for (i = 0; i < len; i++)
+    {
+      int r = rand() % 1000000;
+      arr[i].key = r;
+    }
+  for (i = 0; i < len; i++)
+    printf("%d\t", arr[i].key);
+  printf("\n");
+  clock_t begin = clock();
+  insertSort(arr, len);
+  clock_t end = clock();
+  printf("New list: ");
+  for (i = 0; i < len; i++)
+    printf("%d\t", arr[i].key);
+  printf("\n");
+  printf("Time execution: %lf\n", (double)(end - begin) / CLOCKS_PER_SEC);
+  return 0;
+}

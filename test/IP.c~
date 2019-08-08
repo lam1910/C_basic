@@ -1,0 +1,179 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define fname ip.txt
+#define MAX_LEN 80
+
+//BST structure
+//Remember to change all the line when change keyType to char and key change to pointer (string)
+typedef char keyType;
+
+typedef struct node
+{
+  keyType key[MAX_LEN];
+  keyType addr{MAX_LEN];
+  struct node* left;
+  struct node* right;
+}node;
+
+typedef struct node* BSTtype;
+
+//find the first occurence of a node that have key x
+BSTtype search(keyType* x, BSTtype root)
+{
+  if (root == NULL) //not found, exit condition
+    return NULL;
+  else if (strcmp(root->key, x) == 0) //found, exit condition
+    return root;
+  else if (strcmp(root->key, x) < 0)
+    return search(x, root->left);
+  else
+    return search(x, root->right);
+}
+
+node* makeNewNode(keyType* x, keyType* ad)
+{
+  node* new;
+  new = (node* )malloc(sizeof(node));
+  strcpy(new->key, x);
+  strcpy(new->addr, ad);
+  new->left = NULL;
+  new->right = NULL;
+}
+
+//insert a new node to the BST
+void insertBST(keyType* x, keyType* ad, BSTtype* r)
+{
+  if (*r == NULL)
+    {
+      *r = (node* )malloc(sizeof(node));
+      strcpy((*r)->key, x);
+      strcpy((*r)->addr, ad);
+      (*r)->left = NULL;
+      (*r)->right = NULL;
+    }
+  else if (x < (*r)->key)
+    insertBST(x, &(*r)->left);
+  else if (x > (*r)->key)
+    insertBST(x, &(*r)->right);
+}
+
+//delete the left most node of tree r
+keyType* deleteMin(BSTtype* r)
+{
+  keyType k[MAX_LEN];
+  if ((*r)->left == NULL)
+    {
+      strcpy(k, (*r)->key);
+      (*r) = (*r)->right;
+      return k;
+    }
+  else
+    return deleteMin(&(*r)->left);
+}
+
+//find the left most node (smallest) of the right most subtree of r(all of them are bigger than r->key and change key of node (tree) r to the key of that node than delete that node
+void delete(keyType* x, BSTtype* r)
+{
+  if (*r != NULL)
+    if (strcmp(x, (*r)->key) < 0)
+      delete(x, &(*r)->left);
+    else if (strcmp(x, (*r)->key) > 0)
+      delete(x, &(*r)->right);
+    else if (((*r)->left == NULL) && ((*r)->right == NULL))
+      *r = NULL;
+    else if ((*r)->left == NULL)
+      *r = (*r)->right;
+    else if ((*r)->right == NULL)
+      *r = (*r)->left;
+    else
+      (*r)->key = deleteMin(&(*r)->right);
+  else
+    printf("Error: Do not have that tree.\n");
+}
+
+//root first travesal
+void preoder(BSTtype tree)
+{
+  if (tree != NULL)
+    {
+      printf("%40s %40s\n", tree->key, tree->addr);
+      preoder(tree->left);
+      preoder(tree->right);
+    }
+}
+
+//root in between two subtree
+void inoder(BSTtype tree)
+{
+  if (tree != NULL)
+    {
+      inoder(tree->left);
+      printf("%40s %40s\n", tree->key, tree->addr);
+      inoder(tree->right);
+    }
+}
+
+//root after
+void postoder(BSTtype tree)
+{
+  if (tree != NULL)
+    {
+      postoder(tree->left);
+      postoder(tree->right);
+      printf("%40s %40s\n", tree->key, tree->addr);
+    }
+}
+
+void read(char* fn, BSTType* r)
+{
+  FILE* f  
+  
+}
+
+int main()
+{
+  int choice;
+  FILE* in;
+  in = fopen(fname, "r+");
+  do
+    {
+      printf("\n\n_______________\n");
+      printf("Menu:\n");
+      printf("\t1: Reading Data.\n");
+      printf("\t2: IP Lookup.\n");
+      printf("\t3: Blocks Website.\n");
+      printf("\t4: IP Sort.\n");
+      printf("\t5: Exit.\n");
+      printf("\nYour Choice: ");
+      scanf("%d", &choice);
+      getchar();
+      switch(choice)
+	{
+	case 1:
+	  if (in == NULL)
+	    {
+	      printf("Cannot open the source file.\n");
+	      exit(1);
+	    }
+	  
+	  break;
+	case 2:
+	  break;
+	case 3:
+	  break;
+	case 4:
+	  break;
+	case 5:
+	  printf("\nThank you for using our service.\n");
+	  break;
+	default:
+	  printf("Cannot recognize that function. Type in again (1-5).\n");
+	  printf("The Menu will be shown again.\n");
+	  break;
+	}
+    }while (choice != 5);
+  fclose(in);
+  return 0;
+}

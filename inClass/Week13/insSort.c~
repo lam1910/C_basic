@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insertSort(int arr[], int n)
+{
+  int i = 1;
+  int j = 0;
+  int next;
+  for (i = 1; i < n; i ++)
+    {
+      next = arr[i];
+      for (j = i - 1; j >= 0; j --)
+	if (next < list[j])
+	  list[j + 1] = list[j];
+      list[j + 1] = next;
+    }
+}
